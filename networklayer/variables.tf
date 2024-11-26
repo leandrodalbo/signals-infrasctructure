@@ -1,6 +1,6 @@
 variable "env" {
   type = string
-  
+
 }
 variable "region" {
   type = string
@@ -58,5 +58,9 @@ variable "private_subnet_cidr_c" {
 }
 
 variable "private_subnet_zone_c" {
+  type = string
+}
+
+variable "private_ip_gw" {
   type = string
 }
