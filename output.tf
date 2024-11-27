@@ -1,9 +1,9 @@
 output "vpc_id" {
-    value = aws_vpc.crypto_trading_signal_vpc.id
+  value = aws_vpc.crypto_trading_signal_vpc.id
 }
 
 output "vpc_cidr" {
-    value = aws_vpc.crypto_trading_signal_vpc.cidr_block
+  value = aws_vpc.crypto_trading_signal_vpc.cidr_block
 }
 
 output "public_subnet_a_id" {
@@ -26,4 +26,28 @@ output "private_subnet_b_id" {
 }
 output "private_subnet_c_id" {
   value = aws_subnet.crypto_trading_signal_private_subnet_c.id
+}
+
+
+output "alb_listener" {
+  value = aws_lb_listener.crypto_trading_signals_alb_listener.arn
+}
+
+
+output "cluste_name" {
+  value = aws_ecs_cluster.crypto_trading_signals_cluster.name
+}
+
+
+output "cluster_iam_role_name" {
+  value = aws_iam_role.ecs_cluster_role.name
+}
+
+
+output "cluster_iam_role_arn" {
+  value = aws_iam_role.ecs_cluster_role.arn
+}
+
+output "alb_dns" {
+  value = aws_alb.crypto_trading_signals_alb.dns_name
 }

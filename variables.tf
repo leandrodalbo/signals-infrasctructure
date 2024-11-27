@@ -6,7 +6,6 @@ variable "region" {
   type = string
 }
 
-
 variable "vpc_cidr" {
   type = string
 }
@@ -62,5 +61,21 @@ variable "private_subnet_zone_c" {
 }
 
 variable "private_ip_gw" {
+  type = string
+}
+
+variable "state_bucket" {
+  type = string
+}
+
+variable "state_bucket_key" {
+  type = string
+}
+
+variable "cluster_name" {
+  type = string
+}
+
+variable "alb_name" {
   type = string
 }
