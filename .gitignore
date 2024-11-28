@@ -1,3 +1,5 @@
+envprod.sh
+testapp
 **/*.conf
 **/.terraform*
 # Local .terraform directories

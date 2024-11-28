@@ -79,3 +79,30 @@ variable "cluster_name" {
 variable "alb_name" {
   type = string
 }
+
+variable "ecs_service_name" {
+  type = string
+}
+
+variable "ecs_service_memory" {
+  type = string
+}
+
+variable "ecs_image_url" {
+  type = string
+}
+
+variable "spring_profile_active" {
+  type = string
+}
+
+variable "docker_container_port" {
+  type = number
+}
+
+variable "task_number" {
+  type = number
+}
+
+
+

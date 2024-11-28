@@ -62,31 +62,31 @@ resource "aws_iam_role" "ecs_cluster_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "ecs_cluste_policy" {
+resource "aws_iam_role_policy" "ecs_cluster_policy" {
   name   = "${aws_ecs_cluster.crypto_trading_signals_cluster.name}-pol"
   role   = aws_iam_role.ecs_cluster_role.id
   policy = <<EOF
     {
       "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-          "ecs:*",
-          "ec2:*",
-          "elasticloadbalancing:*",
-          "ecr:*",
-          "rds:*",
-          "sqs:*",
-          "sns:*",
-          "ssm:*",
-          "s3:*",
-          "cloudwatch:*",
-          "logs:*"
-      ],
-      "Resource":"*"
-    }
-  ] 
-    }
+      "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+            "ecs:*",
+           "ec2:*",
+           "elasticloadbalancing:*",
+           "ecr:*",
+           "rds:*",
+           "sqs:*",
+           "sns:*",
+           "ssm:*",
+           "s3:*",
+            "cloudwatch:*",
+            "logs:*"
+        ],
+        "Resource":"*"
+      }
+    ] 
+  }
   EOF
 }
