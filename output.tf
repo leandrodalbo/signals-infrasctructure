@@ -51,3 +51,21 @@ output "cluster_iam_role_arn" {
 output "alb_dns" {
   value = aws_alb.crypto_trading_signals_alb.dns_name
 }
+
+output "mq_endpoint" {
+  value = aws_mq_broker.rabbitmq_broker.instances.0.endpoints.0
+}
+
+output "postgress_host" {
+  value = aws_db_instance.crypto_trading_signal_db.address
+}
+
+output "postgress_port" {
+  value = aws_db_instance.crypto_trading_signal_db.port
+}
+
+output "postgress_dbname" {
+  value = aws_db_instance.crypto_trading_signal_db.db_name
+}
+
+

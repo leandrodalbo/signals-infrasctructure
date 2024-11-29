@@ -72,17 +72,17 @@ resource "aws_iam_role_policy" "ecs_cluster_policy" {
       {
         "Effect": "Allow",
         "Action": [
-            "ecs:*",
-           "ec2:*",
-           "elasticloadbalancing:*",
-           "ecr:*",
-           "rds:*",
-           "sqs:*",
-           "sns:*",
-           "ssm:*",
-           "s3:*",
-            "cloudwatch:*",
-            "logs:*"
+          "ecs:*",
+          "ec2:*",
+          "elasticloadbalancing:*",
+          "ecr:*",
+          "rds:*",
+          "sqs:*",
+          "sns:*",
+          "ssm:*",
+          "s3:*",
+          "cloudwatch:*",
+          "logs:*"
         ],
         "Resource":"*"
       }

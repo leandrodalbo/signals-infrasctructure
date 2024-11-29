@@ -1,4 +1,4 @@
-envprod.sh
+scripts
 testapp
 **/*.conf
 **/.terraform*

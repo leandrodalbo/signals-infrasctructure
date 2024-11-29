@@ -1,68 +1,18 @@
-data "template_file" "ecs_task_template" {
-  template = file("tasktemplate.json")
+data "template_file" "apptasktemplate" {
+  template = file("task.json")
 
   vars = {
-    task_definition_name  = var.ecs_service_name
     image_url             = var.ecs_image_url
-    spring_profile_active = var.spring_profile_active
-    docker_container_port = var.docker_container_port
+    container_port        = var.docker_container_port
     ecs_service_name      = var.ecs_service_name
     region                = var.region
+    spring_profile_active = var.spring_profile_active
   }
 }
 
-resource "aws_iam_role" "fargate_role" {
-  name               = "${var.ecs_service_name}-rl"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-          "Service": [
-            "ecs.amazonaws.com",
-            "ec2-tasks.amazonaws.com"
-          ]
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ] 
-}
-EOF
-}
-
-resource "aws_iam_role_policy" "fargate_role_policy" {
-  name   = "${var.ecs_service_name}-pol"
-  role   = aws_iam_role.fargate_role.id
-  policy = <<EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-      {
-        "Effect": "Allow",
-        "Action": [
-            "ecs:*",
-           "ec2:*",
-           "elasticloadbalancing:*",
-           "ecr:*",
-           "rds:*",
-           "sqs:*",
-           "sns:*",
-           "ssm:*",
-           "s3:*",
-            "cloudwatch:*",
-            "logs:*"
-        ],
-        "Resource":"*"
-      }
-    ] 
-  }
-  EOF
-}
 
 resource "aws_ecs_task_definition" "app_task_definition" {
-  container_definitions    = data.template_file.ecs_task_template.rendered
+  container_definitions    = data.template_file.apptasktemplate.rendered
   family                   = var.ecs_service_name
   cpu                      = 512
   memory                   = var.ecs_service_memory
@@ -70,6 +20,7 @@ resource "aws_ecs_task_definition" "app_task_definition" {
   network_mode             = "awsvpc"
   execution_role_arn       = aws_iam_role.fargate_role.arn
   task_role_arn            = aws_iam_role.fargate_role.arn
+
 }
 
 resource "aws_alb_target_group" "ecs_fargate_target" {
@@ -97,7 +48,7 @@ resource "aws_alb_target_group" "ecs_fargate_target" {
 
 resource "aws_ecs_service" "app_ecs_service" {
   name            = var.ecs_service_name
-  task_definition = var.ecs_service_name
+  task_definition = aws_ecs_task_definition.app_task_definition.arn
   desired_count   = var.task_number
   cluster         = aws_ecs_cluster.crypto_trading_signals_cluster.name
   launch_type     = "FARGATE"
@@ -118,7 +69,6 @@ resource "aws_ecs_service" "app_ecs_service" {
 }
 
 
-
 resource "aws_lb_listener_rule" "app_alb_listener_rule" {
   listener_arn = aws_lb_listener.crypto_trading_signals_alb_listener.arn
   priority     = 100
@@ -137,4 +87,54 @@ resource "aws_lb_listener_rule" "app_alb_listener_rule" {
 
 resource "aws_cloudwatch_log_group" "app_log_group" {
   name = "${var.ecs_service_name}-logs"
+}
+
+resource "aws_iam_role" "fargate_role" {
+  name               = "${var.ecs_service_name}-rl"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+          "Service": [
+            "ecs.amazonaws.com",
+            "ecs-tasks.amazonaws.com"
+          ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ] 
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "fargate_role_policy" {
+  name   = "${var.ecs_service_name}-pol"
+  role   = aws_iam_role.fargate_role.id
+  policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ecs:*",
+          "ec2:*",
+          "elasticloadbalancing:*",
+          "ecr:*",
+          "rds:*",
+          "sqs:*",
+          "sns:*",
+          "ssm:*",
+          "s3:*",
+          "cloudwatch:*",
+          "logs:*"
+        ],
+        "Resource":"*"
+      }
+    ] 
+  }
+  EOF
 }

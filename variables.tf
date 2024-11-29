@@ -104,5 +104,30 @@ variable "task_number" {
   type = number
 }
 
+variable "rabbit_mq_username" {
+  type = string
+}
+
+variable "rabbit_mq_password" {
+  type = string
+}
+
+variable "postgres_db_id" {
+  type = string
+}
+
+variable "postgres_user_name" {
+  type = string
+}
+
+
+variable "postgres_user_password" {
+  type = string
+}
+
+variable "postgres_db_name" {
+  type = string
+}
+
 
 
