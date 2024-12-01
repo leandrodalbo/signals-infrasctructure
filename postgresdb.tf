@@ -5,9 +5,13 @@ resource "aws_db_instance" "crypto_trading_signal_db" {
   engine                 = "postgres"
   engine_version         = "16.4"
   skip_final_snapshot    = true
-  publicly_accessible    = false
+  publicly_accessible    = true
+
   vpc_security_group_ids = [aws_security_group.postgresdb_sg.id]
+  db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
+
   username               = var.postgres_user_name
   password               = var.postgres_user_password
   db_name                = var.postgres_db_name
+
 }

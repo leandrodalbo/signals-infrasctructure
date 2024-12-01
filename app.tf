@@ -6,8 +6,16 @@ data "template_file" "apptasktemplate" {
     container_port        = var.docker_container_port
     ecs_service_name      = var.ecs_service_name
     region                = var.region
-    spring_profile_active = var.spring_profile_active
+    db_user               = var.postgres_user_name
+    db_password           = var.postgres_user_password
+    db_name               = var.postgres_db_name
+    db_host               = aws_db_instance.crypto_trading_signal_db.address
+    rabbit_host           = split(":",split("//",aws_mq_broker.rabbitmq_broker.instances.0.endpoints.0)[1])[0]
+    rabbit_user           = var.rabbit_mq_username
+    rabbit_password       = var.rabbit_mq_password
   }
+
+  depends_on = [ aws_db_instance.crypto_trading_signal_db, aws_mq_broker.rabbitmq_broker ]
 }
 
 
@@ -129,6 +137,7 @@ resource "aws_iam_role_policy" "fargate_role_policy" {
           "sns:*",
           "ssm:*",
           "s3:*",
+          "mq:*",
           "cloudwatch:*",
           "logs:*"
         ],

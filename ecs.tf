@@ -81,6 +81,7 @@ resource "aws_iam_role_policy" "ecs_cluster_policy" {
           "sns:*",
           "ssm:*",
           "s3:*",
+          "mq:*",
           "cloudwatch:*",
           "logs:*"
         ],

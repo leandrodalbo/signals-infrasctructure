@@ -156,3 +156,13 @@ resource "aws_route" "internet_gw_route" {
   gateway_id             = aws_internet_gateway.internet_gw.id
   destination_cidr_block = "0.0.0.0/0"
 }
+
+
+resource "aws_db_subnet_group" "db_subnet_group" {
+  name = "${var.env}-db-subnet-group"
+  subnet_ids = [aws_subnet.crypto_trading_signal_private_subnet_a.id, aws_subnet.crypto_trading_signal_private_subnet_b.id]
+
+  tags = {
+    Name = "${var.env}-dbsubnetgrp"
+  }
+}

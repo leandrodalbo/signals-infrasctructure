@@ -53,7 +53,7 @@ output "alb_dns" {
 }
 
 output "mq_endpoint" {
-  value = aws_mq_broker.rabbitmq_broker.instances.0.endpoints.0
+  value = split(":",split("//",aws_mq_broker.rabbitmq_broker.instances.0.endpoints.0)[1])[0]
 }
 
 output "postgress_host" {
