@@ -90,7 +90,7 @@ resource "aws_route_table_association" "public_route_b_association" {
 
 
 resource "aws_db_subnet_group" "signals_db_subnet_group" {
-  name = "${var.env}-db-subnet-group"
+  name       = "${var.env}-db-subnet-group"
   subnet_ids = [aws_subnet.signals_private_subnet_a.id, aws_subnet.signals_private_subnet_b.id]
 
   tags = {
