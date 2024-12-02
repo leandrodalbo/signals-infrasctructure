@@ -13,6 +13,8 @@ jobs:
     name: "Trading Signals Basic Resources"
     runs-on: ubuntu-latest
     env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.TF_VAR_AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_SECRET_KEY }}
       TF_ESTATE_BUCKET: ${{ secrets.TF_ESTATE_BUCKET }}
       TF_ESTATE_KEY: ${{ secrets.TF_ESTATE_KEY }}
       TF_VAR_aws_access_key: ${{ secrets.TF_VAR_AWS_ACCESS_KEY }}
