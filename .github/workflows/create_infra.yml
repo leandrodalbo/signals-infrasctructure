@@ -15,12 +15,12 @@ jobs:
     env:
       TF_ESTATE_BUCKET: ${{ secrets.TF_ESTATE_BUCKET }}
       TF_ESTATE_KEY: ${{ secrets.TF_ESTATE_KEY }}
-      TF_VAR_AWS_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_ACCESS_KEY }}
-      TF_VAR_AWS_SECRET_KEY: ${{ secrets.TF_VAR_AWS_SECRET_KEY }}
-      TF_VAR_POSTGRES_DB_NAME: ${{ secrets.TF_VAR_POSTGRES_DB_NAME }}
-      TF_VAR_POSTGRES_USER_NAME: ${{ secrets.TF_VAR_POSTGRES_USER_NAME }}
-      TF_VAR_POSTGRES_USER_PASSWORD: ${{ secrets.TF_VAR_POSTGRES_USER_PASSWORD }}
-      TF_VAR_REGION: ${{ secrets.TF_VAR_REGION }}
+      TF_VAR_aws_access_key: ${{ secrets.TF_VAR_AWS_ACCESS_KEY }}
+      TF_VAR_aws_secret_key: ${{ secrets.TF_VAR_AWS_SECRET_KEY }}
+      TF_VAR_postgres_db_name: ${{ secrets.TF_VAR_POSTGRES_DB_NAME }}
+      TF_VAR_postgres_user_name: ${{ secrets.TF_VAR_POSTGRES_USER_NAME }}
+      TF_VAR_postgres_user_password: ${{ secrets.TF_VAR_POSTGRES_USER_PASSWORD }}
+      TF_VAR_region: ${{ secrets.TF_VAR_REGION }}
 
     steps:
       - name: Checkout
