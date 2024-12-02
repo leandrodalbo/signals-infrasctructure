@@ -1,5 +1,4 @@
-scripts
-testapp
+conf
 **/*.conf
 **/.terraform*
 # Local .terraform directories
