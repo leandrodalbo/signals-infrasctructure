@@ -1,0 +1,50 @@
+name: "Create trading signals vpc + db"
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types: [published]
+  pull_request:
+
+jobs:
+  terraform:
+    name: "Trading Signals Basic Resources"
+    runs-on: ubuntu-latest
+    env:
+      TF_ESTATE_BUCKET: ${{ secrets.TF_ESTATE_BUCKET }}
+      TF_ESTATE_KEY: ${{ secrets.TF_ESTATE_KEY }}
+      TF_VAR_AWS_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_ACCESS_KEY }}
+      TF_VAR_AWS_SECRET_KEY: ${{ secrets.TF_VAR_AWS_SECRET_KEY }}
+      TF_VAR_POSTGRES_DB_NAME: ${{ secrets.TF_VAR_POSTGRES_DB_NAME }}
+      TF_VAR_POSTGRES_USER_NAME: ${{ secrets.TF_VAR_POSTGRES_USER_NAME }}
+      TF_VAR_POSTGRES_USER_PASSWORD: ${{ secrets.TF_VAR_POSTGRES_USER_PASSWORD }}
+      TF_VAR_REGION: ${{ secrets.TF_VAR_REGION }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: code format
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend-config="key=$TF_ESTATE_KEY" -backend-config="bucket=$TF_ESTATE_BUCKET" -backend-config="region=$TF_VAR_region"
+
+      - name: Execute Plan
+        id: plan
+        run: terraform plan -no-color -var-file=prod.tfvars
+        continue-on-error: true
+
+      - name: Exit on Plan Failure
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Apply Changes
+        run: terraform apply -auto-approve -var-file=prod.tfvars
