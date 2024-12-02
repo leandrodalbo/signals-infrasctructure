@@ -1,9 +1,9 @@
-provider "aws" {
-  region = var.region
+terraform {
+  backend "s3" {}
 }
 
-terraform {
-  backend "s3" {
-
-  }
+provider "aws" {
+  region     = var.region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
 }
