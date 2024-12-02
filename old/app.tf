@@ -31,29 +31,6 @@ resource "aws_ecs_task_definition" "app_task_definition" {
 
 }
 
-resource "aws_alb_target_group" "ecs_fargate_target" {
-  name        = "${var.ecs_service_name}-tg"
-  port        = var.docker_container_port
-  protocol    = "HTTP"
-  vpc_id      = aws_vpc.crypto_trading_signal_vpc.id
-  target_type = "ip"
-
-  health_check {
-    path                = "/actuator/health"
-    protocol            = "HTTP"
-    matcher             = "200"
-    interval            = 300
-    timeout             = 30
-    unhealthy_threshold = "3"
-    healthy_threshold   = "3"
-  }
-
-  tags = {
-    Name = "${var.env}_${var.ecs_service_name}_tg"
-  }
-
-}
-
 resource "aws_ecs_service" "app_ecs_service" {
   name            = var.ecs_service_name
   task_definition = aws_ecs_task_definition.app_task_definition.arn
