@@ -10,78 +10,90 @@ variable "region" {
   type = string
 }
 
-
 variable "env" {
   type = string
 
 }
 
-variable "app_name" {
+variable "appname" {
   type = string
 
 }
 
-variable "vpc_cidr_block" {
-  type = string
-
-}
-
-variable "subnet_zone_a" {
-  type = string
-
-}
-variable "subnet_zone_b" {
-  type = string
-
-}
-
-variable "public_subnet_cidr_a" {
-  type = string
-
-}
-
-variable "public_subnet_cidr_b" {
-  type = string
-
-}
-
-variable "private_subnet_cidr_a" {
-  type = string
-
-}
-
-variable "private_subnet_cidr_b" {
-  type = string
-
-}
-
-variable "postgres_db_id" {
+variable "dbname" {
   type = string
 }
 
-variable "postgres_user_name" {
+variable "dbuser" {
   type = string
 }
 
-variable "postgres_user_password" {
+variable "dbid" {
   type = string
 }
 
-variable "postgres_db_name" {
+variable "dbclass" {
   type = string
 }
 
-variable "db_instance_class" {
+variable "dbengine" {
   type = string
 }
 
-variable "db_engine" {
-  type = string
-}
-
-variable "db_engine_version" {
+variable "dbengineversion" {
   type = string
 }
 
 
+variable "vpc_cidr" {
+  type = string
 
+}
+
+variable "zone_a" {
+  type = string
+
+}
+variable "zone_b" {
+  type = string
+
+}
+
+variable "zone_c" {
+  type = string
+
+}
+
+variable "public_cidr_a" {
+  type = string
+
+}
+
+variable "public_cidr_b" {
+  type = string
+
+}
+
+variable "public_cidr_c" {
+  type = string
+
+}
+
+variable "private_cidr_a" {
+  type = string
+
+}
+
+variable "private_cidr_b" {
+  type = string
+
+}
+
+variable "private_cidr_c" {
+  type = string
+
+}
+
+variable "nateip" {
+  type = string
+}
