@@ -1,21 +1,22 @@
-resource "aws_security_group" "postgresdb_sg" {
-  name   = "${var.env}-postgresdb-sg"
-  vpc_id = aws_vpc.aws-signals-vpc.id
+resource "aws_security_group" "dbsg" {
+  name   = "${var.env}-db-sg"
+  vpc_id = aws_vpc.signalsvpc.id
 }
 
-resource "aws_security_group_rule" "postgresdb_http_inbound" {
+resource "aws_security_group_rule" "dbin" {
   type              = "ingress"
-  security_group_id = aws_security_group.postgresdb_sg.id
+  security_group_id = aws_security_group.dbsg.id
 
-  from_port   = 5432
-  to_port     = 5432
-  protocol    = "tcp"
-  cidr_blocks = [aws_vpc.aws-signals-vpc.cidr_block]
+  from_port = 5432
+  to_port   = 5432
+  protocol  = "tcp"
+
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
-resource "aws_security_group_rule" "postgresdb_all_outbound" {
+resource "aws_security_group_rule" "dbout" {
   type              = "egress"
-  security_group_id = aws_security_group.postgresdb_sg.id
+  security_group_id = aws_security_group.dbsg.id
 
   from_port   = 0
   to_port     = 0
