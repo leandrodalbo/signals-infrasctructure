@@ -36,7 +36,7 @@ jobs:
 
       - name: Execute Plan
         id: plan
-        run: terraform plan -no-color -var-file=prod.tfvars | echo Planning Changes
+        run: terraform plan -no-color -var-file=prod.tfvars
         continue-on-error: true
 
       - name: Exit on Plan Failure
