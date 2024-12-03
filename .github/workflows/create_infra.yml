@@ -10,17 +10,15 @@ jobs:
     name: "Trading Signals Basic Resources"
     runs-on: ubuntu-latest
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.TF_VAR_AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_SECRET_KEY }}
-      TF_ESTATE_BUCKET: ${{ secrets.TF_ESTATE_BUCKET }}
-      TF_ESTATE_KEY: ${{ secrets.TF_ESTATE_KEY }}
-      TF_VAR_aws_access_key: ${{ secrets.TF_VAR_AWS_ACCESS_KEY }}
-      TF_VAR_aws_secret_key: ${{ secrets.TF_VAR_AWS_SECRET_KEY }}
-      TF_VAR_postgres_db_name: ${{ secrets.TF_VAR_POSTGRES_DB_NAME }}
-      TF_VAR_postgres_user_name: ${{ secrets.TF_VAR_POSTGRES_USER_NAME }}
-      TF_VAR_postgres_user_password: ${{ secrets.TF_VAR_POSTGRES_USER_PASSWORD }}
-      TF_VAR_region: ${{ secrets.TF_VAR_REGION }}
-
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET }}
+      STATE_BUCKET_KEY: ${{ secrets.STATE_KEY }}
+      STATE_BUCKET: ${{ secrets.STATE }}
+      TF_VAR_region: ${{ secrets.AWS_REGION }}
+      TF_VAR_dbname: ${{ secrets.DBNAME }}
+      TF_VAR_dbuser: ${{ secrets.DBUSER }}
+      TF_VAR_aws_access_key: ${{ secrets.AWS_KEY }}
+      TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -30,7 +28,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend-config="key=$TF_ESTATE_KEY" -backend-config="bucket=$TF_ESTATE_BUCKET" -backend-config="region=$TF_VAR_region"
+        run: terraform init -backend-config="key=$STATE_BUCKET_KEY" -backend-config="bucket=$STATE_BUCKET" -backend-config="region=$TF_VAR_region"
 
       - name: code format
         id: fmt
@@ -38,7 +36,7 @@ jobs:
 
       - name: Execute Plan
         id: plan
-        run: terraform plan -no-color -var-file=prod.tfvars
+        run: terraform plan -no-color -var-file=prod.tfvars | echo Planning Changes
         continue-on-error: true
 
       - name: Exit on Plan Failure
