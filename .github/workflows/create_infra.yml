@@ -36,7 +36,7 @@ jobs:
 
       - name: Execute Plan
         id: plan
-        run: terraform plan -no-color -var-file=prod.tfvars
+        run: terraform plan -no-color -var-file=prod.tfvars > /dev/null
         continue-on-error: true
 
       - name: Exit on Plan Failure
@@ -44,4 +44,4 @@ jobs:
         run: exit 1
 
       - name: Apply Changes
-        run: terraform apply -auto-approve -var-file=prod.tfvars
+        run: terraform apply -auto-approve -var-file=prod.tfvars > /dev/null
