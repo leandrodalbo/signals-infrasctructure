@@ -1,7 +1,7 @@
 resource "aws_db_instance" "db" {
   identifier          = var.dbid
   instance_class      = var.dbclass
-  allocated_storage   = 5
+  allocated_storage   = 3
   engine              = var.dbengine
   engine_version      = var.dbengineversion
   skip_final_snapshot = true
