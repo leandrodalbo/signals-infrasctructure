@@ -63,6 +63,17 @@ output "alb_arn" {
   sensitive = true
 }
 
+output "alb_dns" {
+  value     = aws_alb.signals-alb.dns_name
+  sensitive = true
+}
+
+output "alb_cert" {
+  value     = aws_iam_server_certificate.alb_cert.arn
+  sensitive = true
+}
+
+
 output "cluster_role_name" {
   value = aws_iam_role.cluster_role.name
 }
