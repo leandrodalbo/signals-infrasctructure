@@ -22,7 +22,7 @@ resource "random_password" "randompwrd" {
 }
 
 resource "aws_secretsmanager_secret" "dbpswd" {
-  name = "${var.env}-dbaccess"
+  name = "${var.env}-db-passwd"
 }
 
 resource "aws_secretsmanager_secret_version" "dbpswd_version" {
