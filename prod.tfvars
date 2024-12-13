@@ -1,6 +1,8 @@
 env     = "prod"
 appname = "trading-signals"
 
+ssl_cert = "ssl/cert.json"
+
 dbid            = "tradingsignalsdb"
 dbclass         = "db.t3.micro"
 dbengine        = "postgres"

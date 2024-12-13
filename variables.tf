@@ -17,6 +17,15 @@ variable "env" {
 
 variable "appname" {
   type = string
+}
+
+variable "bucket" {
+  type = string
+
+}
+
+variable "ssl_cert" {
+  type = string
 
 }
 
