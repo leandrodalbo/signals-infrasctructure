@@ -15,10 +15,10 @@ resource "aws_acm_certificate" "signals_api_certificate" {
 }
 
 resource "aws_route53_record" "api_cert_validation_record" {
-  name            = aws_acm_certificate.signals_api_certificate.domain_validation_options[0].resource_record_name
-  type            = aws_acm_certificate.signals_api_certificate.domain_validation_options[0].resource_record_type
+  name            = element(aws_acm_certificate.signals_api_certificate.domain_validation_options[*].resource_record_name, 0)
+  type            =  element(aws_acm_certificate.signals_api_certificate.domain_validation_options[*].resource_record_type, 0)
   zone_id         = data.aws_route53_zone.signal_api_domain.zone_id
-  records         = ["${aws_acm_certificate.signals_api_certificate.domain_validation_options[0].resource_record_value}"]
+  records         = [ element(aws_acm_certificate.signals_api_certificate.domain_validation_options[*].resource_record_value, 0)]
   ttl             = 60
   allow_overwrite = true
 }
