@@ -69,7 +69,7 @@ output "alb_dns" {
 }
 
 output "alb_cert" {
-  value     = aws_iam_server_certificate.alb_cert.arn
+  value     = aws_acm_certificate.signals_api_certificate.arn
   sensitive = true
 }
 
