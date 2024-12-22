@@ -106,3 +106,7 @@ variable "private_cidr_c" {
 variable "nateip" {
   type = string
 }
+
+variable "api_domain" {
+  type = string
+}

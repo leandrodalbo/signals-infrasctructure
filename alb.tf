@@ -10,3 +10,17 @@ resource "aws_alb" "signals-alb" {
     Environment = var.env
   }
 }
+
+
+resource "aws_route53_record" "alb_record" {
+  name    = "*.${var.api_domain}"
+  type    = "A"
+  zone_id = data.aws_route53_zone.signal_api_domain.zone_id
+
+  alias {
+    evaluate_target_health = false
+    name                   = aws_alb.signals-alb.dns_name
+    zone_id                = aws_alb.signals-alb.zone_id
+  }
+}
+

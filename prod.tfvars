@@ -23,3 +23,5 @@ private_cidr_b = "10.0.5.0/24"
 private_cidr_c = "10.0.6.0/24"
 
 nateip = "10.0.0.5"
+
+api_domain = "cryptosignalzone.click"
