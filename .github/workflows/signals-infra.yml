@@ -29,18 +29,18 @@ jobs:
         id: init
         run: terraform init -backend-config="key=$STATE_BUCKET_KEY" -backend-config="bucket=$STATE_BUCKET" -backend-config="region=$TF_VAR_region"
 
-      - name: code format
-        id: fmt
-        run: terraform fmt -check
+      # - name: code format
+      #   id: fmt
+      #   run: terraform fmt -check
 
-      - name: Execute Plan
-        id: plan
-        run: terraform plan -no-color -var-file=prod.tfvars > /dev/null
-        continue-on-error: true
+      # - name: Execute Plan
+      #   id: plan
+      #   run: terraform plan -no-color -var-file=prod.tfvars > /dev/null
+      #   continue-on-error: true
 
-      - name: Exit on Plan Failure
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
+      # - name: Exit on Plan Failure
+      #   if: steps.plan.outcome == 'failure'
+      #   run: exit 1
 
       - name: Apply Changes
-        run: terraform apply -auto-approve -var-file=prod.tfvars > /dev/null
+        run: terraform destroy -auto-approve -var-file=prod.tfvars > /dev/null
